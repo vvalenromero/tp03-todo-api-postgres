@@ -1,0 +1,6 @@
+# Los scripts .sh deben quedar con LF: con CRLF, bash en Linux falla con "$\r": command not found
+*.sh text eol=lf
+*.sql text eol=lf
+*.js text eol=lf
+Dockerfile text eol=lf
+*.md text
