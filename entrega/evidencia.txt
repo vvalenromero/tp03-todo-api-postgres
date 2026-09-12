@@ -1,0 +1,44 @@
+EVIDENCIA DE PRUEBAS - TODO API (TP3 Programación Avanzada)
+Generado: Sat Sep 12 14:08:07     2026
+Base URL: http://localhost:3001
+==================================================
+>> RF-01 / RF-06 - GET /tasks (lista + filtro por status)
+[GET /tasks] -> 200
+[{"id":1,"title":"Task 1","description":"Description 1","status":"completed","due_date":"2026-08-15T00:00:00.000Z","created_at":"2026-09-12T03:09:00.367Z","updated_at":"2026-09-12T03:09:00.367Z"},{"id":2,"title":"Task 2","description":"Description 2","status":"pending","due_date":"2026-08-16T00:00:00.000Z","created_at":"2026-09-12T03:09:00.367Z","updated_at":"2026-09-12T03:09:00.367Z"}]
+[GET /tasks?status=pending] -> 200
+[{"id":2,"title":"Task 2","description":"Description 2","status":"pending","due_date":"2026-08-16T00:00:00.000Z","created_at":"2026-09-12T03:09:00.367Z","updated_at":"2026-09-12T03:09:00.367Z"}]
+==================================================
+>> RF-02 - GET /tasks/:id (existente)
+ID usado: 1
+[GET /tasks/1] -> 200
+{"id":1,"title":"Task 1","description":"Description 1","status":"completed","due_date":"2026-08-15T00:00:00.000Z","created_at":"2026-09-12T03:09:00.367Z","updated_at":"2026-09-12T03:09:00.367Z"}
+==================================================
+>> RF-02 - GET /tasks/:id (NO existente) -> esperado 404
+[GET /tasks/9999] -> 404
+{"error":"Task not found"}
+==================================================
+>> RF-03 - POST /tasks (crear)
+[POST /tasks] -> 201
+{"id":4,"title":"Tarea de prueba TP3","description":"Creada por script de evidencia","status":"pending","due_date":null,"created_at":"2026-09-12T17:08:08.472Z","updated_at":"2026-09-12T17:08:08.472Z"}
+==================================================
+>> RF-03 - POST /tasks (sin title) -> esperado 400
+[POST /tasks {}] -> 400
+==================================================
+>> RF-04 - PUT /tasks/:id (actualiza solo status, conserva el resto)
+[PUT /tasks/1] -> 200
+{"id":1,"title":"Task 1","description":"Description 1","status":"completed","due_date":"2026-08-15T00:00:00.000Z","created_at":"2026-09-12T03:09:00.367Z","updated_at":"2026-09-12T17:08:08.644Z"}
+==================================================
+>> RF-04 - Verificacion: updated_at cambio, title/description se conservaron
+{"id":1,"title":"Task 1","description":"Description 1","status":"completed","due_date":"2026-08-15T00:00:00.000Z","created_at":"2026-09-12T03:09:00.367Z","updated_at":"2026-09-12T17:08:08.644Z"}
+==================================================
+>> RF-04 - PUT /tasks/:id (NO existente) -> esperado 404
+[PUT /tasks/9999] -> 404
+{"error":"Task not found"}
+==================================================
+>> RF-05 - DELETE /tasks/:id (eliminar) -> esperado 204
+[DELETE /tasks/1] -> 204
+==================================================
+>> RF-05 - DELETE /tasks/:id (NO existente) -> esperado 404
+[DELETE /tasks/9999] -> 404
+{"error":"Task not found"}
+FIN DE PRUEBAS

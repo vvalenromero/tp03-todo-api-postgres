@@ -1,0 +1,63 @@
+ Image 02-todo-api-postgres-api Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 581B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 435B 0.0s done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:20-alpine
+#3 ...
+
+#4 [auth] library/node:pull token for registry-1.docker.io
+#4 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:20-alpine
+#3 DONE 1.5s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 81B done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 8.88kB 0.0s done
+#6 DONE 0.0s
+
+#7 [1/5] FROM docker.io/library/node:20-alpine@sha256:fb4cd12c85ee03686f6af5362a0b0d56d50c58a04632e6c0fb8363f609372293
+#7 resolve docker.io/library/node:20-alpine@sha256:fb4cd12c85ee03686f6af5362a0b0d56d50c58a04632e6c0fb8363f609372293 0.0s done
+#7 DONE 0.1s
+
+#8 [3/5] COPY package*.json ./
+#8 CACHED
+
+#9 [2/5] WORKDIR /app
+#9 CACHED
+
+#10 [4/5] RUN npm install --omit=dev
+#10 CACHED
+
+#11 [5/5] COPY . .
+#11 DONE 0.1s
+
+#12 exporting to image
+#12 exporting layers 0.1s done
+#12 exporting manifest sha256:4c88574196403913483f0149107df127534512d4b0b7753a5af50c733037c805 0.0s done
+#12 exporting config sha256:69f406cf4a3ce07514189016a095bdb159c8e758fbf4afdd85318fab0a27446d 0.0s done
+#12 exporting attestation manifest sha256:1719ec7e094b7c8619072c49640d0d56d9c40f5f7d6bb00991e23a513a986284 0.0s done
+#12 exporting manifest list sha256:fee7f2a5df026ec02cb5fd0621c1d4fa5b8def8b62df7bc3d0a73076071f48c1
+#12 exporting manifest list sha256:fee7f2a5df026ec02cb5fd0621c1d4fa5b8def8b62df7bc3d0a73076071f48c1 0.0s done
+#12 naming to docker.io/library/02-todo-api-postgres-api:latest done
+#12 unpacking to docker.io/library/02-todo-api-postgres-api:latest 0.1s done
+#12 DONE 0.4s
+
+#13 resolving provenance for metadata file
+#13 DONE 0.0s
+ Image 02-todo-api-postgres-api Built 
+ Container todo_db Running 
+ Container todo_api Recreate 
+ Container todo_api Recreated 
+ Container todo_db Waiting 
+ Container todo_db Healthy 
+ Container todo_api Starting 
+ Container todo_api Started 

@@ -101,6 +101,33 @@ curl -X DELETE http://localhost:3001/tasks/1
 | Acceso a datos | Nada, es JS puro | SQL parametrizado con `pg` |
 | Arranque | Instantaneo | Hay que esperar a que Postgres este listo (`healthcheck` + `depends_on`) |
 
+## Entrega TP3 - lo que se implementó
+
+**Alumno:** Valentín Romero · **Materia:** Programación Avanzada 2026
+
+### Implementación (`server.js`)
+
+| Endpoint | Comportamiento | Codigos |
+|---|---|---|
+| `PUT /tasks/:id` | `COALESCE` sobre `title`, `description`, `status`, `due_date` para no pisar los campos que no vienen en el body; `updated_at = NOW()`; `RETURNING *` para devolver la tarea actualizada | `200` / `404` |
+| `DELETE /tasks/:id` | `DELETE ... RETURNING *`; si no devuelve filas, la tarea no existia | `204` / `404` |
+
+### Como reproducir la evidencia
+
+```bash
+docker compose up --build -d   # levanta api + db
+bash scripts/run-tests.sh      # genera entrega/evidencia.txt (5 endpoints + 400 + 404)
+bash scripts/persistencia.sh   # genera entrega/persistencia.txt (restart api vs down -v)
+```
+
+### Archivos de entrega
+
+- `informe.md` - informe de la prueba de persistencia (Seccion 10.4 del PRD) y su explicacion.
+- `entrega/build.log` - salida de `docker compose up --build` sin errores.
+- `entrega/evidencia.txt` - codigos y cuerpos de respuesta de los 5 endpoints.
+- `entrega/persistencia.txt` - trazas de `restart api` (los datos siguen) y `down -v` + `up` (se pierden).
+- `scripts/` - los dos scripts anteriores, con rutas relativas al repositorio.
+
 ## Troubleshooting
 
 - **Puerto 5432 ya en uso**: si tenes Postgres corriendo localmente, cambia

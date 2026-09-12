@@ -1,0 +1,95 @@
+PRUEBA DE PERSISTENCIA (Sección 10.4 del PRD)
+Generado: Sat Sep 12 14:08:20     2026
+>> 1) POST /tasks (crear tarea de prueba de persistencia)
+{"id":5,"title":"Tarea persistencia TP3","description":"","status":"pending","due_date":null,"created_at":"2026-09-12T17:08:20.566Z","updated_at":"2026-09-12T17:08:20.566Z"}
+ID creado: 5
+>> 2) docker compose restart api  (reinicio SOLO del contenedor de la API)
+ Container todo_api Restarting 
+ Container todo_api Started 
+>> 3) GET /tasks/5 despues del restart (debe SEGUIR existiendo -> 200)
+[GET /tasks/5] -> 200
+>> 4) docker compose down -v (elimina contenedores Y el volumen todo_pgdata)
+ Container todo_api Stopping 
+ Container todo_api Stopped 
+ Container todo_api Removing 
+ Container todo_api Removed 
+ Container todo_db Stopping 
+ Container todo_db Stopped 
+ Container todo_db Removing 
+ Container todo_db Removed 
+ Network 02-todo-api-postgres_default Removing 
+ Volume 02-todo-api-postgres_todo_pgdata Removing 
+ Volume 02-todo-api-postgres_todo_pgdata Removed 
+ Network 02-todo-api-postgres_default Removed 
+>> 5) docker compose up --build -d (volver a levantar desde cero, base vacia)
+ Image 02-todo-api-postgres-api Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 581B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 435B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:20-alpine
+#3 DONE 0.6s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 81B done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 7.10kB 0.0s done
+#5 DONE 0.0s
+
+#6 [1/5] FROM docker.io/library/node:20-alpine@sha256:fb4cd12c85ee03686f6af5362a0b0d56d50c58a04632e6c0fb8363f609372293
+#6 resolve docker.io/library/node:20-alpine@sha256:fb4cd12c85ee03686f6af5362a0b0d56d50c58a04632e6c0fb8363f609372293 0.0s done
+#6 DONE 0.1s
+
+#7 [2/5] WORKDIR /app
+#7 CACHED
+
+#8 [3/5] COPY package*.json ./
+#8 CACHED
+
+#9 [4/5] RUN npm install --omit=dev
+#9 CACHED
+
+#10 [5/5] COPY . .
+#10 DONE 0.0s
+
+#11 exporting to image
+#11 exporting layers 0.1s done
+#11 exporting manifest sha256:d9050173dd82bdb96ecee4042614e00ef9fe639f2e4f6e933d7f1f371795795d 0.0s done
+#11 exporting config sha256:be0d5cf70ac354c7f6c15e2326ac547db3819518b917ef6beb1fbc4aaba5f2a5 0.0s done
+#11 exporting attestation manifest sha256:a715f21f3fdcb7bfb1090def06fb75711dbcc156b7353477777b6bf873efd97d 0.0s done
+#11 exporting manifest list sha256:d104eb90c31c5b5d7792d2ce529c5799e93544ed4cf08e2fc2367b078b5392b2 0.0s done
+#11 naming to docker.io/library/02-todo-api-postgres-api:latest
+#11 naming to docker.io/library/02-todo-api-postgres-api:latest done
+#11 unpacking to docker.io/library/02-todo-api-postgres-api:latest 0.0s done
+#11 DONE 0.3s
+
+#12 resolving provenance for metadata file
+#12 DONE 0.0s
+ Image 02-todo-api-postgres-api Built 
+ Network 02-todo-api-postgres_default Creating 
+ Volume 02-todo-api-postgres_todo_pgdata Creating 
+ Volume 02-todo-api-postgres_todo_pgdata Creating 
+ Network 02-todo-api-postgres_default Creating 
+ Volume 02-todo-api-postgres_todo_pgdata Created 
+ Volume 02-todo-api-postgres_todo_pgdata Created 
+ Network 02-todo-api-postgres_default Created 
+ Network 02-todo-api-postgres_default Created 
+ Container todo_db Creating 
+ Container todo_db Created 
+ Container todo_api Creating 
+ Container todo_api Created 
+ Container todo_db Starting 
+ Container todo_db Started 
+ Container todo_db Waiting 
+ Container todo_db Healthy 
+ Container todo_api Starting 
+ Container todo_api Started 
+>> 6) GET /tasks/5 despues de down -v + up (debe dar 404, datos PERDIDOS)
+[GET /tasks/5] -> 404
+FIN PRUEBA PERSISTENCIA
