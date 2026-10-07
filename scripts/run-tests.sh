@@ -12,7 +12,7 @@ BASE="${BASE:-http://localhost:3001}"
 OUT="entrega/evidencia.txt"
 mkdir -p "$(dirname "$OUT")"
 
-# code <method> <path> [json] -> HTTP status code
+# code <method> <path> [json] -> devuelve el status HTTP
 code() {
   method="$1"; path="$2"; body="${3:-}"
   if [ -n "$body" ]; then
